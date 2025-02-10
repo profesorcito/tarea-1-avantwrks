@@ -2,12 +2,17 @@
 
 using namespace std;
 
-// TODO: Implementar función para calcular la suma de los dígitos de un número
+// Función para calcular la suma de los dígitos de un número
 int sumaDigitos(int n) {
-    // Completa esta función
+    int suma = 0;
+    while (n > 0) {
+        suma += n % 10; // Obtiene el último dígito y lo suma
+        n /= 10;        // Elimina el último dígito
+    }
+    return suma;
 }
 
-// TODO: Implementar la lógica para calcular la tarifa
+// Función para calcular la tarifa de estacionamiento
 double calcularTarifa(int horas, int dia) {
     const double TARIFA_PRIMERA_HORA = 6.00;
     const double TARIFA_1_A_3 = 4.00;
@@ -19,34 +24,35 @@ double calcularTarifa(int horas, int dia) {
 
     // Validar límite de horas
     if (horas > LIMITE_HORAS) {
-        return -1;
+        return -1; // Error si excede el límite de horas
     }
 
     double totalPagar = 0.0;
 
-    // TODO: Implementar la lógica para calcular la tarifa base
+    // Determinar tarifa base según el número de horas
     if (horas == 1) {
-        // Completa aquí
+        totalPagar = TARIFA_PRIMERA_HORA;
     } else if (horas > 1 && horas <= 3) {
-        // Completa aquí
+        totalPagar = TARIFA_PRIMERA_HORA + (horas - 1) * TARIFA_1_A_3;
     } else if (horas > 3 && horas <= 5) {
-        // Completa aquí
+        totalPagar = TARIFA_PRIMERA_HORA + 2 * TARIFA_1_A_3 + (horas - 3) * TARIFA_3_A_5;
     } else {
-        // Completa aquí
+        totalPagar = TARIFA_FIJA;
     }
 
-    // TODO: Aplicar incremento si es fin de semana
-    if (/* Completa esta condición */1) {
+    // Aplicar recargo si es fin de semana
+    if (dia == 6 || dia == 7) {
         totalPagar *= INCREMENTO_FIN_SEMANA;
     }
 
-    // TODO: Aplicar descuento si la suma de los dígitos es múltiplo de 3
-    if (/* Completa esta condición */1) {
+    // Aplicar descuento si la suma de los dígitos de horas es múltiplo de 3
+    if (sumaDigitos(horas) % 3 == 0) {
         totalPagar *= DESCUENTO_DIGITOS;
     }
 
     return totalPagar;
 }
+
 
 int main() {
     int horas, dia;
@@ -62,4 +68,5 @@ int main() {
     }
 
     return 0;
+
 }
